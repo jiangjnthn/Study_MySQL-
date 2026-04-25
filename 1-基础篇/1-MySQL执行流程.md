@@ -1,6 +1,6 @@
 # MySQL 执行流程是怎样的
 
-![image-20260123161410250](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123161410250.png)
+![MySQL执行流程](.\images\流程图.png)
 
 # 第一步：连接器
 
