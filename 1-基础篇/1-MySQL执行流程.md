@@ -1,6 +1,6 @@
 # MySQL 执行流程是怎样的
 
-![MySQL执行流程](images/流程图.png)
+![MySQL执行流程](../images/image-20260123161410250.png)
 
 # 第一步：连接器
 
@@ -191,13 +191,13 @@ MySQL 会根据 SQL 的语法规则，判断你拼凑的这些“单词”是否
 
 如果语法正确，分析器会生成一个复杂的**“解析树” (Parse Tree)**。这棵树把你的 SQL 语句结构化了，方便后面的组件处理。
 
-![image-20260123155512242](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123155512242.png)
+![image-20260123155512242](../images/image-20260123155512242.png)
 
 ------
 
 ### 这里的关键考点：报错的时机
 
-作为研究生做项目，你肯定见过这个经典的报错信息：
+你肯定见过这个经典的报错信息：
 
 > ```
 > ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version...
@@ -591,4 +591,4 @@ select id, name from student where name = 'Bob';
 >   - 优化阶段：基于查询成本的考虑， 选择查询成本最小的执行计划；
 >   - 执行阶段：根据执行计划执行 SQL 查询语句，从存储引擎读取记录，返回给客户端；
 >
-> ![image-20260123161515834](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123161515834.png)
+> ![image-20260123161515834](../images/image-20260123161515834.png)

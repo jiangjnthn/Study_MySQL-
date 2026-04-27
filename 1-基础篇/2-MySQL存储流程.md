@@ -35,7 +35,7 @@
 
 表空间由段(segment)、区(extent)、页(page)、行(row)组成，InnoDB存储引擎的逻辑存储结构，大致如下图：
 
-<img src="C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123194406322.png" alt="image-20260123194406322" style="zoom:67%;" />
+<img src="../images/image-20260123194406322.png" alt="image-20260123194406322" style="zoom:67%;" />
 
 当我们打开一个 `student.ibd` 文件，它内部绝不是杂乱无章的。它有着极其严格的 **层级管理结构**。
 
@@ -105,7 +105,7 @@
 
  COMPACT 行格式展开来看就是：
 
-<img src="C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123202126425.png" alt="image-20260123202126425"  />
+<img src="../images/image-20260123202126425.png" alt="image-20260123202126425"  />
 
 ------
 
@@ -125,9 +125,9 @@
   - 第一行数据：`col1` 内容是 "a" (长度1)，`col2` 内容是 "bb" (长度2)。
   - 存的时候不是 `01 02`，而是 **`02 01`**。
 
-  ![image-20260123202918022](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123202918022.png)
+  ![image-20260123202918022](../images/image-20260123202918022.png)
 
-  ![image-20260123202939248](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123202939248.png)
+  ![image-20260123202939248](../images/image-20260123202939248.png)
 
 - **为什么要逆序？**
 
@@ -135,7 +135,7 @@
   - 把长度列表放在最前面且逆序，使得**记录头信息**恰好夹在“记录头信息”和“真实数据”中间。
   - CPU 在读取数据时，向左读就是长度，向右读就是数据，寻址效率最高（类似于 CPU 缓存行的局部性原理）。
 
-  > ![image-20260123204311384](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123204311384.png)
+  > ![image-20260123204311384](../images/image-20260123204311384.png)
   >
   > 因为 **“第 1 列的长度”** 和 **“第 1 列的数据”** 物理距离很近（都靠近中间的指针）。
   >
@@ -160,11 +160,11 @@
   - 实际数据：`c1=NULL`, `c2=数据`, `c3=NULL`。
   - 二进制位图就是：`101`（注意顺序对应）。
 
-  ![image-20260123205711189](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123205711189.png)
+  ![image-20260123205711189](../images/image-20260123205711189.png)
 
   - 转成十六进制存进去
 
-  ![image-20260123205930885](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123205930885.png)
+  ![image-20260123205930885](../images/image-20260123205930885.png)
 
 - **空间占用**：如果允许 NULL 的列少于 8 个，就只占 **1 字节**。如果超过 8 个，就占 2 字节，以此类推（按字节对齐）。
 
@@ -200,7 +200,7 @@
 
 不管你建表时怎么写，InnoDB 都会在你的数据前面加这三列：
 
-![image-20260123212213846](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123212213846.png)
+![image-20260123212213846](../images/image-20260123212213846.png)
 
 1. **DB_ROW_ID (6 字节)**：
    - **行 ID**。
@@ -347,7 +347,7 @@ CREATE TABLE t (name VARCHAR(N)) CHARSET=utf8mb4;
   - 剩下的数据存到溢出页。
   - 当前页末尾留一个 **20 字节的指针** 指向溢出页，大致如下图所示：
 
-  ![image-20260123215955339](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123215955339.png)
+  ![image-20260123215955339](../images/image-20260123215955339.png)
 
 - **缺点**：因为你在主页里存了 768 字节的“肉”，导致主页能存放的“目录（行记录）”变少了。B+ 树变高了，查询变慢。
 
@@ -361,7 +361,7 @@ CREATE TABLE t (name VARCHAR(N)) CHARSET=utf8mb4;
   - 只存那个 **20 字节的指针**。
   - 所有的数据（100%）都扔到溢出页里去，大致如下图所示：
 
-  ![image-20260123220031925](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20260123220031925.png)
+  ![image-20260123220031925](../images/image-20260123220031925.png)
 
 - **优点**：
 
